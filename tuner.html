@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home - Performance Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="margin:0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right, #0f2027, #203a43, #2c5364); color: #fff;">
+
+  <!-- HEADER -->
+  <header style="padding: 20px; text-align: center; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); box-shadow: 0 0 20px #0ff;">
+    <h1 style="font-size: 2em; color: #0ff; text-shadow: 0 0 10px #0ff;">Game Booster Monitor</h1>
+    <p style="margin-top: 5px; color: #aaa;">Realtime Network & System Statistics</p>
+  </header>
+
+  <!-- CONTENT WRAPPER -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; padding: 40px 20px; gap: 30px;">
+
+    <!-- Ping Chart -->
+    <div style="background: rgba(0,0,0,0.6); border-radius: 15px; padding: 20px; box-shadow: 0 0 20px #00ffff88; width: 90%; max-width: 500px; animation: fadeInUp 1s;">
+      <h3 style="color:#0ff; text-align:center;">Ping Real Time</h3>
+      <canvas id="pingChart" height="200"></canvas>
+    </div>
+
+    <!-- CPU Usage Chart -->
+    <div style="background: rgba(0,0,0,0.6); border-radius: 15px; padding: 20px; box-shadow: 0 0 20px #ff00ff88; width: 90%; max-width: 500px; animation: fadeInUp 1s 0.5s;">
+      <h3 style="color:#f0f; text-align:center;">CPU Usage</h3>
+      <canvas id="cpuChart" height="200"></canvas>
+    </div>
+
+  </div>
+
+  <!-- ANIMATION -->
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <!-- SCRIPT -->
+  <script>
+    // PING CHART
+    const pingCtx = document.getElementById('pingChart').getContext('2d');
+    const pingData = {
+      labels: [],
+      datasets: [{
+        label: 'Ping (ms)',
+        data: [],
+        borderColor: '#00ffff',
+        backgroundColor: 'rgba(0,255,255,0.2)',
+        tension: 0.4
+      }]
+    };
+    const pingChart = new Chart(pingCtx, {
+      type: 'line',
+      data: pingData,
+      options: {
+        responsive: true,
+        scales: {
+          x: { display: false },
+          y: { beginAtZero: true, max: 300, ticks: { color: '#0ff' } }
+        },
+        plugins: {
+          legend: { labels: { color: '#0ff' } }
+        }
+      }
+    });
+
+    function updatePing() {
+      const ping = Math.floor(Math.random() * 150) + 30;
+      const now = new Date().toLocaleTimeString();
+      if (pingChart.data.labels.length > 20) {
+        pingChart.data.labels.shift();
+        pingChart.data.datasets[0].data.shift();
+      }
+      pingChart.data.labels.push(now);
+      pingChart.data.datasets[0].data.push(ping);
+      pingChart.update();
+    }
+
+    setInterval(updatePing, 1000);
+
+    // CPU USAGE CHART
+    const cpuCtx = document.getElementById('cpuChart').getContext('2d');
+    const cpuData = {
+      labels: [],
+      datasets: [{
+        label: 'CPU (%)',
+        data: [],
+        borderColor: '#ff00ff',
+        backgroundColor: 'rgba(255,0,255,0.2)',
+        tension: 0.4
+      }]
+    };
+    const cpuChart = new Chart(cpuCtx, {
+      type: 'line',
+      data: cpuData,
+      options: {
+        responsive: true,
+        scales: {
+          x: { display: false },
+          y: { beginAtZero: true, max: 100, ticks: { color: '#f0f' } }
+        },
+        plugins: {
+          legend: { labels: { color: '#f0f' } }
+        }
+      }
+    });
+
+    function updateCPU() {
+      const cpu = Math.floor(Math.random() * 70) + 20;
+      const now = new Date().toLocaleTimeString();
+      if (cpuChart.data.labels.length > 20) {
+        cpuChart.data.labels.shift();
+        cpuChart.data.datasets[0].data.shift();
+      }
+      cpuChart.data.labels.push(now);
+      cpuChart.data.datasets[0].data.push(cpu);
+      cpuChart.update();
+    }
+
+    setInterval(updateCPU, 1500);
+  </script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Performance Monitor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen p-6 font-sans">
+
+  <h1 class="text-3xl font-bold text-center mb-6 animate-fadeIn">📊 Performance Monitor</h1>
+
+  <div class="grid gap-6 max-w-md mx-auto">
+    
+    <!-- CPU Usage -->
+    <div class="bg-gray-800 p-4 rounded-xl shadow-xl">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-lg font-semibold">CPU Usage</span>
+        <span id="cpuText" class="text-sm text-cyan-400">40%</span>
+      </div>
+      <div class="w-full bg-gray-600 rounded-full h-3 overflow-hidden">
+        <div id="cpuBar" class="h-3 bg-gradient-to-r from-cyan-500 to-purple-600 transition-all duration-500 w-2/5 rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- RAM Usage -->
+    <div class="bg-gray-800 p-4 rounded-xl shadow-xl">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-lg font-semibold">RAM Usage</span>
+        <span id="ramText" class="text-sm text-pink-400">65%</span>
+      </div>
+      <div class="w-full bg-gray-600 rounded-full h-3 overflow-hidden">
+        <div id="ramBar" class="h-3 bg-gradient-to-r from-pink-500 to-red-600 transition-all duration-500 w-2/3 rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- Suhu -->
+    <div class="bg-gray-800 p-4 rounded-xl shadow-xl flex items-center justify-between">
+      <div>
+        <p class="text-lg font-semibold">Suhu CPU</p>
+        <p id="tempText" class="text-yellow-400 text-xl font-bold mt-1">58°C</p>
+      </div>
+      <div class="text-yellow-400 text-3xl animate-pulse">
+        🌡️
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simulasi angka acak sebagai demo
+    function updateMonitor() {
+      const cpu = Math.floor(Math.random() * 100);
+      const ram = Math.floor(40 + Math.random() * 50);
+      const temp = Math.floor(40 + Math.random() * 30);
+
+      document.getElementById('cpuBar').style.width = cpu + "%";
+      document.getElementById('ramBar').style.width = ram + "%";
+      document.getElementById('cpuText').innerText = cpu + "%";
+      document.getElementById('ramText').innerText = ram + "%";
+      document.getElementById('tempText').innerText = temp + "°C";
+    }
+
+    setInterval(updateMonitor, 2000); // update setiap 2 detik
+  </script>
+
+</body>
+</html>
+
+
+</body>
+</html>

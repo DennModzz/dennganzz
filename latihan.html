@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>System Monitor & Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+    }
+
+    .bubble-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .bubble-nav a {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e0f7fa;
+      padding: 10px 18px;
+      border-radius: 9999px;
+      font-weight: 500;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+      position: relative;
+    }
+
+    .bubble-nav a:hover {
+      background: rgba(0, 255, 255, 0.1);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+    .bubble-header {
+      margin: 2.5rem auto 1.5rem;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      border-radius: 9999px;
+      color: #e0f7fa;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
+      animation: subtle-pop 2.5s infinite ease-in-out alternate;
+      width: fit-content;
+    }
+
+    @keyframes subtle-pop {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.025); }
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 3px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(34, 34, 34, 0.9);
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: #0ff;
+      box-shadow: 0 0 10px #0ff;
+      display: none;
+      z-index: 999;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    @keyframes zoomIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .zoom-in {
+      animation: zoomIn 0.8s ease-out forwards;
+    }
+  </style>
+</head>
+<body>
+
+  
+
+  <!-- Bubble Navbar -->
+  <div class="bubble-nav">
+    <a href="tuner.html">Statistics</a>
+    <a href="performa.html">Unlock FPS</a>
+    <a href="performance.html">Performance</a>
+    <a href="latihan.html">Home App</a>
+    <a href="history.html">History</a>
+    <a href="about.html">About</a>
+  </div>
+
+<div class="flex justify-center mt-10">
+  <div class="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 text-center transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+    <!-- Logo -->
+    <div class="flex justify-center items-center w-32 h-32 bg-black rounded-full border-4 border-cyan-400 mx-auto">
+      <img src="img/dz.jpg" alt="Logo" class="w-20 h-20 object-cover rounded-full">
+    </div>
+
+
+  <!-- Nama & Role -->
+  <h4 class="text-2xl font-bold text-center mb- text-cyan-300 animate-pulse">DennZF</h4>
+  <h4 class="text-center text-cyan-300 text-lg">Frontend Engineer</h4>
+  <p class="text-center text-gray-400 mt-2">Create Website , Create Application</p>
+
+  
+
+  
+
+</div>
+
+
+
+
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('contact-toast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2000);
+    });
+  }
+</script>
+
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Toast Message</div>
+
+
+  <script>
+    const toast = document.getElementById('toast');
+
+    function showToast(msg) {
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 2000);
+    }
+
+    function startProgress() {
+      showToast('Loading...');
+    }
+  </script>
+
+  
+
+</body>
+</html>

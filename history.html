@@ -1,0 +1,77 @@
+<section style="padding: 30px; background: linear-gradient(135deg, #0e0e0e, #1b1b1b); border-radius: 20px; margin: 30px; box-shadow: 0 10px 30px rgba(0, 255, 150, 0.2);">
+    <h2 style="text-align: center; color: #00ffc3; font-size: 28px; margin-bottom: 20px; font-family: 'Segoe UI', sans-serif;">
+      🚀 Riwayat Boosting
+    </h2>
+    
+    <div id="boost-log" style="display: flex; flex-direction: column; gap: 15px; max-height: 400px; overflow-y: auto;"></div>
+  </section>
+  
+  <script>
+    const boostLog = document.getElementById("boost-log");
+  
+    function addBoostLog(game, ram, cpu) {
+      const time = new Date().toLocaleTimeString();
+      const card = document.createElement("div");
+  
+      card.innerHTML = `
+        <div style="
+          background: radial-gradient(circle at top left, #1e1e1e, #121212);
+          border-left: 5px solid #00ffc3;
+          border-radius: 12px;
+          padding: 20px;
+          box-shadow: 0 5px 20px rgba(0,255,180,0.08);
+          color: white;
+          font-family: 'Segoe UI', sans-serif;
+          opacity: 0;
+          transform: translateY(20px);
+          animation: fadeUp 0.5s ease forwards;
+        ">
+          <h3 style="margin: 0 0 10px; font-size: 18px;">🎮 ${game}</h3>
+          <p style="margin: 5px 0;"><strong>Waktu :</strong> ${time}</p>
+          <p style="margin: 5px 0;"><strong>RAM Di Bersihkan :</strong> ${ram} MB</p>
+          <p style="margin: 5px 0;"><strong>Mode CPU :</strong> ${cpu}</p>
+        </div>
+      `;
+  
+      boostLog.prepend(card);
+    }
+  
+    // Simulasi data boosting
+    const games = ["Mobile Legends", "PUBG Mobile", "Genshin Impact", "Free Fire"];
+    const cpuModes = ["Max FPS", "Balanced", "Ultra Boost", "Turbo"];
+  
+    setInterval(() => {
+      const game = games[Math.floor(Math.random() * games.length)];
+      const ram = Math.floor(Math.random() * 600) + 300;
+      const cpu = cpuModes[Math.floor(Math.random() * cpuModes.length)];
+      addBoostLog(game, ram, cpu);
+    }, 7000);
+  </script>
+
+<script>
+    function exportBoostLogJSON() {
+      const jsonData = JSON.stringify(logs, null, 2); // rapi pakai indent
+      const blob = new Blob([jsonData], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+  
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "riwayat-boosting.json";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+  
+  
+  <!-- Inline keyframes animation -->
+  <style>
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  
+  

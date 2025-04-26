@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Booster - Portrait Mode</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 300px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+    .feature {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      transition: background 0.3s;
+    }
+    .feature:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #4CAF50;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+      bottom: 70px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>UNLOCK FPS BOOSTER</h1>
+
+  <div class="feature">
+    PERFORMANCE LOW
+    <label class="switch">
+      <input type="checkbox" onchange="showToast('Fitur DI Aktifkan', this.checked)">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="feature">
+    PERFORMANCE MEDIUM
+    <label class="switch">
+      <input type="checkbox" onchange="showToast('Fitur DI Aktifkan', this.checked)">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  
+  <div class="feature">
+    PERFORMANCE HIGH
+    <label class="switch">
+      <input type="checkbox" onchange="showToast('Fitur DI Aktifkan', this.checked)">
+      <span class="slider"></span>
+    </label>
+  </div>
+  
+  <div class="feature">
+    PERFORMANCE ULTRA
+    <label class="switch">
+      <input type="checkbox" onchange="showToast('Fitur DI Aktifkan', this.checked)">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function showToast(featureName, isEnabled) {
+  const toast = document.getElementById('toast');
+  toast.textContent = `${featureName} ${isEnabled ? 'Diaktifkan' : 'Dinonaktifkan'}`;
+  toast.className = 'toast show';
+  setTimeout(() => {
+    toast.className = 'toast';
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
